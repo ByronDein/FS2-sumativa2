@@ -1,0 +1,107 @@
+<main class="container-fluid py-4">
+  <div class="container">
+    <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+      {{ alert.message }}
+      <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
+    </div>
+
+    <section class="surface-panel mb-4">
+      <div class="row g-3 align-items-center">
+        <div class="col-12 col-lg-8">
+          <span class="eyebrow">{{ auth.currentUser()?.role === 'admin' ? 'Admin' : 'Cliente' }}</span>
+          <h1 class="h3 fw-bold mb-2">{{ auth.currentUser()?.role === 'admin' ? 'Vista de administracion' : 'Catalogo de compras' }}</h1>
+          <p class="text-secondary mb-0">
+            {{ auth.currentUser()?.role === 'admin' ? 'Desde aqui puedes comprar o ir a los mantenedores.' : 'Explora los productos, agrega al carrito y revisa tus pedidos.' }}
+          </p>
+        </div>
+        <div class="col-12 col-lg-4 text-lg-end">
+          <a class="btn btn-outline-light" routerLink="/carrito">Ver carrito</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="row g-4">
+      <div class="col-12 col-xl-8">
+        <div class="surface-panel h-100">
+          <div class="row g-3 align-items-end mb-3">
+            <div class="col-12 col-md-5">
+              <label class="form-label" for="categoryFilter">Categoria</label>
+              <select class="form-select" id="categoryFilter" name="categoryFilter" [(ngModel)]="selectedCategory" (change)="searchEvent()">
+                <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-7">
+              <label class="form-label" for="search">Buscar</label>
+              <input class="form-control" id="search" name="search" type="search" placeholder="Nombre, marca o categoria" [(ngModel)]="searchText" (keyup)="searchEvent()">
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 col-md-6 col-xxl-4" *ngFor="let product of products()">
+              <app-product-card [product]="product" (addProduct)="addProduct($event)"></app-product-card>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-4">
+        <div class="surface-panel mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 mb-0">Carrito</h2>
+            <span class="badge text-bg-info">{{ cart.count() }}</span>
+          </div>
+          <div class="stack-list">
+            <div class="cart-item" *ngFor="let row of cart.rows()">
+              <div class="d-flex justify-content-between gap-2">
+                <div>
+                  <strong>{{ row.product.name }}</strong>
+                  <div class="small text-secondary">{{ row.product.category }}</div>
+                </div>
+                <button class="btn btn-sm btn-outline-light" type="button" (click)="cart.remove(row.productId)">Eliminar</button>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="input-group input-group-sm" style="max-width: 120px">
+                  <button class="btn btn-outline-light" type="button" (click)="cart.minus(row.productId)">-</button>
+                  <input class="form-control text-center" [value]="row.qty" readonly>
+                  <button class="btn btn-outline-light" type="button" (click)="cart.plus(row.productId)">+</button>
+                </div>
+                <strong>{{ storage.money(row.subtotal) }}</strong>
+              </div>
+            </div>
+            <div class="text-secondary" *ngIf="!cart.rows().length">El carrito esta vacio.</div>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between mb-3">
+            <span>Total</span>
+            <strong>{{ storage.money(cart.total()) }}</strong>
+          </div>
+          <button class="btn btn-primary w-100" type="button" (click)="checkout()">Simular pago</button>
+        </div>
+
+        <div class="surface-panel">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 mb-0">Mis pedidos</h2>
+            <span class="badge text-bg-secondary">{{ userOrders().length }}</span>
+          </div>
+          <div class="stack-list">
+            <article class="order-card" *ngFor="let order of userOrders()">
+              <div class="d-flex justify-content-between gap-2">
+                <strong>{{ order.id }}</strong>
+                <span class="badge text-bg-success">{{ order.status }}</span>
+              </div>
+              <div class="small text-secondary mt-1">{{ order.createdAt | date:'short' }}</div>
+              <div class="small text-secondary mt-2">
+                <span *ngFor="let item of order.items; let last = last">{{ item.name }} x{{ item.qty }}{{ last ? '' : ' - ' }}</span>
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <span class="small text-secondary">{{ order.items.length }} items</span>
+                <strong>{{ storage.money(order.total) }}</strong>
+              </div>
+            </article>
+            <div class="text-secondary" *ngIf="!userOrders().length">Aun no tienes pedidos.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

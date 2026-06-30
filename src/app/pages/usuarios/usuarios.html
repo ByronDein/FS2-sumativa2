@@ -1,0 +1,50 @@
+<main class="container py-4">
+  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+    {{ alert.message }}
+    <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
+  </div>
+
+  <section class="surface-panel mb-4">
+    <span class="eyebrow">Usuarios</span>
+    <h1 class="h3 fw-bold mb-2">Mantenedor de usuarios</h1>
+    <p class="text-secondary mb-0">Cambiar roles y bloquear o activar cuentas.</p>
+  </section>
+
+  <section class="surface-panel">
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users.all()">
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <select #roleSelect class="form-select form-select-sm" [value]="user.role" [disabled]="user.email === 'admin@techmart.local'" (change)="changeRole(user.id, roleSelect.value)">
+                <option value="customer">Cliente</option>
+                <option value="admin">Admin</option>
+              </select>
+            </td>
+            <td>
+              <span class="badge" [class.text-bg-success]="user.active" [class.text-bg-secondary]="!user.active">
+                {{ user.active ? 'Activo' : 'Bloqueado' }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-outline-light" type="button" [disabled]="user.email === 'admin@techmart.local'" (click)="toggleActive(user.id)">
+                {{ user.active ? 'Bloquear' : 'Activar' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>

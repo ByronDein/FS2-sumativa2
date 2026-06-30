@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">Laptop</title>
+  <desc id="desc">Ilustración estilizada de un laptop para catálogo de tienda.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f2749" />
+      <stop offset="100%" stop-color="#09111f" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#4ea1ff" />
+      <stop offset="100%" stop-color="#14c9a8" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" rx="40" fill="url(#bg)"/>
+  <circle cx="160" cy="120" r="90" fill="#4ea1ff" fill-opacity=".18"/>
+  <circle cx="760" cy="470" r="120" fill="#14c9a8" fill-opacity=".14"/>
+  <rect x="190" y="150" width="520" height="320" rx="24" fill="#0f1c33" stroke="url(#glow)" stroke-width="10"/>
+  <rect x="220" y="180" width="460" height="250" rx="14" fill="#172847"/>
+  <rect x="315" y="470" width="270" height="28" rx="14" fill="#d4e7ff" fill-opacity=".85"/>
+  <rect x="280" y="500" width="340" height="18" rx="9" fill="#7f91a9"/>
+  <text x="450" y="88" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" fill="#eaf4ff" font-weight="700">LAPTOP</text>
+</svg>

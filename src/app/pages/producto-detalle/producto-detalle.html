@@ -1,0 +1,64 @@
+<main class="container py-4">
+  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+    {{ alert.message }}
+    <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
+  </div>
+
+  <section class="surface-panel" *ngIf="product; else notFound">
+    <div class="row g-4 align-items-start">
+      <div class="col-12 col-lg-5">
+        <div class="product-media rounded overflow-hidden border">
+          <img [src]="product.image" [alt]="product.name" class="w-100">
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-7">
+        <span class="eyebrow">{{ product.category }}</span>
+        <div class="d-flex justify-content-between gap-3 align-items-start flex-wrap">
+          <div>
+            <h1 class="h2 fw-bold mb-2">{{ product.name }}</h1>
+            <p class="text-secondary mb-3">{{ product.brand }}</p>
+          </div>
+          <span *ngIf="product.featured" class="badge text-bg-warning">Producto destacado</span>
+        </div>
+
+        <p class="lead mb-4">{{ product.description }}</p>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-md-4">
+            <div class="stat-card h-100">
+              <strong>{{ storage.money(product.price) }}</strong>
+              <span>Precio</span>
+            </div>
+          </div>
+          <div class="col-6 col-md-4">
+            <div class="stat-card h-100">
+              <strong>{{ product.stock }}</strong>
+              <span>Stock disponible</span>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="stat-card h-100">
+              <strong>{{ product.category }}</strong>
+              <span>Categoria</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid d-sm-flex gap-2">
+          <button class="btn btn-primary" type="button" [disabled]="product.stock <= 0" (click)="addToCart()">Agregar al carrito</button>
+          <a class="btn btn-outline-light" routerLink="/tienda">Volver a tienda</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ng-template #notFound>
+    <section class="surface-panel">
+      <span class="eyebrow">Producto</span>
+      <h1 class="h3 fw-bold mb-2">Producto no encontrado</h1>
+      <p class="text-secondary">No existe un producto asociado a esta ruta.</p>
+      <a class="btn btn-outline-light" routerLink="/tienda">Volver a tienda</a>
+    </section>
+  </ng-template>
+</main>

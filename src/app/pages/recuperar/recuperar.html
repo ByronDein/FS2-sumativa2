@@ -1,0 +1,53 @@
+<main class="container py-4">
+  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+    {{ alert.message }}
+    <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
+  </div>
+
+  <section class="surface-panel">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-12 col-lg-5">
+        <div class="hero-panel h-100">
+          <span class="eyebrow">Recuperar</span>
+          <h1 class="h2 fw-bold mb-3">Cambia tu contrasena.</h1>
+          <p class="text-secondary mb-0">Busca tu correo registrado y guarda una nueva contrasena segura.</p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7">
+        <div class="surface-panel h-100">
+          <div class="d-flex gap-2 mb-4 auth-switch">
+            <a class="btn btn-sm btn-outline-light" routerLink="/login">Login</a>
+            <a class="btn btn-sm btn-outline-light" routerLink="/registro">Registro</a>
+            <a class="btn btn-sm btn-outline-light active" routerLink="/recuperar">Recuperar</a>
+          </div>
+          <form class="row g-3" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="col-12">
+              <label class="form-label" for="email">Correo</label>
+              <input class="form-control" id="email" type="email" formControlName="email">
+              <div class="invalid-feedback d-block" *ngIf="form.controls.email.hasError('missing')">No se encontro una cuenta con ese correo.</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="password">Nueva contrasena</label>
+              <input class="form-control" id="password" type="password" formControlName="password">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="confirm">Confirmar</label>
+              <input class="form-control" id="confirm" type="password" formControlName="confirm">
+              <div class="invalid-feedback d-block" *ngIf="form.touched && form.hasError('fieldsMismatch')">Las contrasenas no coinciden.</div>
+            </div>
+            <div class="col-12">
+              <div class="password-hints">
+                <div *ngFor="let rule of ruleLabels" [class.hint-ok]="passwordRules()[rule.key]" [class.hint-bad]="!passwordRules()[rule.key]">
+                  {{ passwordRules()[rule.key] ? 'OK' : 'NO' }} - {{ rule.label }}
+                </div>
+              </div>
+            </div>
+            <div class="col-12 d-grid">
+              <button class="btn btn-primary" type="submit">Actualizar contrasena</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

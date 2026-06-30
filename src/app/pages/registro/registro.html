@@ -1,0 +1,81 @@
+<main class="container py-4">
+  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+    {{ alert.message }}
+    <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
+  </div>
+
+  <section class="surface-panel">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-12 col-lg-5">
+        <div class="hero-panel h-100">
+          <span class="eyebrow">Registro</span>
+          <h1 class="h2 fw-bold mb-3">Crea tu cuenta de cliente.</h1>
+          <p class="text-secondary mb-0">Formulario reactivo con validaciones de correo, edad, telefono y contrasena segura.</p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-7">
+        <div class="surface-panel h-100">
+          <div class="d-flex gap-2 mb-4 auth-switch">
+            <a class="btn btn-sm btn-outline-light" routerLink="/login">Login</a>
+            <a class="btn btn-sm btn-outline-light active" routerLink="/registro">Registro</a>
+            <a class="btn btn-sm btn-outline-light" routerLink="/recuperar">Recuperar</a>
+          </div>
+          <form class="row g-3" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="name">Nombre</label>
+              <input class="form-control" id="name" formControlName="name">
+              <div class="invalid-feedback d-block" *ngIf="form.controls.name.touched && form.controls.name.invalid">Minimo 3 caracteres.</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="email">Correo</label>
+              <input class="form-control" id="email" type="email" formControlName="email" (keyup)="form.controls.email.setErrors(null)">
+              <div class="invalid-feedback d-block" *ngIf="form.controls.email.touched && form.controls.email.hasError('email')">Ingresa un correo valido.</div>
+              <div class="invalid-feedback d-block" *ngIf="form.controls.email.hasError('exists')">Ese correo ya esta registrado.</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="phone">Telefono</label>
+              <input class="form-control" id="phone" formControlName="phone">
+              <div class="invalid-feedback d-block" *ngIf="form.controls.phone.touched && form.controls.phone.invalid">Ingresa un telefono valido.</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="birthDate">Fecha de nacimiento</label>
+              <input class="form-control" id="birthDate" type="date" formControlName="birthDate">
+              <div class="invalid-feedback d-block" *ngIf="form.controls.birthDate.touched && form.controls.birthDate.hasError('minAge')">Debes tener al menos 13 anos.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="address">Direccion</label>
+              <input class="form-control" id="address" formControlName="address">
+              <div class="form-text">Opcional, minimo 5 caracteres si la ingresas.</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="password">Contrasena</label>
+              <input class="form-control" id="password" type="password" formControlName="password" (keyup)="alert = null">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="confirm">Confirmar contrasena</label>
+              <input class="form-control" id="confirm" type="password" formControlName="confirm">
+              <div class="invalid-feedback d-block" *ngIf="form.touched && form.hasError('fieldsMismatch')">Las contrasenas no coinciden.</div>
+            </div>
+            <div class="col-12">
+              <div class="password-hints">
+                <div *ngFor="let rule of ruleLabels" [class.hint-ok]="passwordRules()[rule.key]" [class.hint-bad]="!passwordRules()[rule.key]">
+                  {{ passwordRules()[rule.key] ? 'OK' : 'NO' }} - {{ rule.label }}
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" id="terms" type="checkbox" formControlName="terms">
+                <label class="form-check-label" for="terms">Acepto los terminos.</label>
+              </div>
+              <div class="invalid-feedback d-block" *ngIf="form.controls.terms.touched && form.controls.terms.invalid">Debes aceptar los terminos.</div>
+            </div>
+            <div class="col-12 d-grid">
+              <button class="btn btn-primary" type="submit">Crear cuenta</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
