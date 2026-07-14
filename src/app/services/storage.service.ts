@@ -11,7 +11,15 @@ export class StorageService {
     session: 'techmart-session',
   };
 
-  readonly categories = ['Todos', 'Laptops', 'PC Gamer', 'Componentes', 'Perifericos', 'Monitores', 'Almacenamiento'];
+  readonly categories = [
+    'Todos',
+    'Laptops',
+    'PC Gamer',
+    'Componentes',
+    'Perifericos',
+    'Monitores',
+    'Almacenamiento',
+  ];
 
   private readonly demoUsers: User[] = [
     {
@@ -45,7 +53,8 @@ export class StorageService {
       price: 699990,
       stock: 8,
       image: 'assets/img/products/laptop.svg',
-      description: 'Notebook liviano para estudio, oficina y navegacion diaria con SSD y autonomia amplia.',
+      description:
+        'Notebook liviano para estudio, oficina y navegacion diaria con SSD y autonomia amplia.',
       featured: true,
     },
     {
@@ -136,9 +145,12 @@ export class StorageService {
   }
 
   seedDemoData(): void {
-    if (!this.read<User[] | null>(this.keys.users, null)) this.write(this.keys.users, this.clone(this.demoUsers));
-    if (!this.read<Product[] | null>(this.keys.products, null)) this.write(this.keys.products, this.clone(this.demoProducts));
-    if (!this.read<Order[] | null>(this.keys.orders, null)) this.write(this.keys.orders, this.demoOrders());
+    if (!this.read<User[] | null>(this.keys.users, null))
+      this.write(this.keys.users, this.clone(this.demoUsers));
+    if (!this.read<Product[] | null>(this.keys.products, null))
+      this.write(this.keys.products, this.clone(this.demoProducts));
+    if (!this.read<Order[] | null>(this.keys.orders, null))
+      this.write(this.keys.orders, this.demoOrders());
     if (!this.read<CartItem[] | null>(this.keys.cart, null)) this.write(this.keys.cart, []);
   }
 

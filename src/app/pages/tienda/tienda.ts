@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+﻿import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProductCard } from '../../components/product-card/product-card';
@@ -24,12 +24,36 @@ import { StorageService } from '../../services/storage.service';
   templateUrl: './tienda.html',
   styleUrl: './tienda.css',
 })
-export class Tienda {
+export class Tienda implements OnInit {
   readonly auth = inject(AuthService);
   readonly cart = inject(CartService);
   readonly storage = inject(StorageService);
   private readonly productsService = inject(ProductsService);
   private readonly ordersService = inject(OrdersService);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  productsList: Product[] = [];
+  loadingProducts = false;
+
+  ngOnInit(): void {
+    this.loadingProducts = true;
+    this.productsService.load().subscribe({
+      next: (products) => {
+        this.productsList = products;
+        this.loadingProducts = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.productsList = this.productsService.all();
+        this.loadingProducts = false;
+        this.alert = {
+          type: 'warning',
+          message: 'Se muestra la copia local porque json-server no esta disponible.',
+        };
+        this.cdr.detectChanges();
+      },
+    });
+  }
 
   /** Mensaje de alerta visible en la pantalla. */
   alert: AppAlert | null = null;
@@ -46,11 +70,14 @@ export class Tienda {
   /** Filtra productos por categoria y texto buscado. */
   products(): Product[] {
     const text = this.searchText.trim().toLowerCase();
-    return this.productsService.all().filter((product) => {
-      const matchCategory = this.selectedCategory === 'Todos' || product.category === this.selectedCategory;
+    return this.productsList.filter((product) => {
+      const matchCategory =
+        this.selectedCategory === 'Todos' || product.category === this.selectedCategory;
       const matchSearch =
         !text ||
-        [product.name, product.brand, product.category, product.description].some((value) => value.toLowerCase().includes(text));
+        [product.name, product.brand, product.category, product.description].some((value) =>
+          value.toLowerCase().includes(text),
+        );
       return matchCategory && matchSearch;
     });
   }
@@ -81,3 +108,5 @@ export class Tienda {
     this.alert = { type: result.ok ? 'success' : 'warning', message: result.message };
   }
 }
+
+

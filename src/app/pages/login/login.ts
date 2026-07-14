@@ -36,7 +36,10 @@ export class Login {
       return;
     }
 
-    const user = this.auth.login(this.form.controls.email.value || '', this.form.controls.password.value || '');
+    const user = this.auth.login(
+      this.form.controls.email.value || '',
+      this.form.controls.password.value || '',
+    );
     if (!user) {
       this.alert = { type: 'danger', message: 'Credenciales invalidas o usuario bloqueado.' };
       return;

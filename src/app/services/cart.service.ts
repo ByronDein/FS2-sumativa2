@@ -94,11 +94,20 @@ export class CartService {
     for (const item of cart) {
       const product = products.find((entry) => entry.id === item.productId);
       if (!product || product.stock < item.qty) {
-        return { ok: false, message: 'Stock insuficiente para ' + (product ? product.name : 'un producto') + '.', total: 0 };
+        return {
+          ok: false,
+          message: 'Stock insuficiente para ' + (product ? product.name : 'un producto') + '.',
+          total: 0,
+        };
       }
 
       product.stock -= item.qty;
-      orderItems.push({ productId: product.id, name: product.name, qty: item.qty, price: product.price });
+      orderItems.push({
+        productId: product.id,
+        name: product.name,
+        qty: item.qty,
+        price: product.price,
+      });
       total += product.price * item.qty;
     }
 
@@ -118,6 +127,10 @@ export class CartService {
     this.ordersService.save(orders);
     this.save([]);
 
-    return { ok: true, message: 'Pago simulado con exito por ' + this.storage.money(total) + '.', total };
+    return {
+      ok: true,
+      message: 'Pago simulado con exito por ' + this.storage.money(total) + '.',
+      total,
+    };
   }
 }

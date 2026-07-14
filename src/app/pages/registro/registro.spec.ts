@@ -47,6 +47,14 @@ describe('Registro - Formulario reactivo', () => {
     expect(email?.valid).toBeFalse();
   });
 
+  it('debe rechazar correo sin arroba ni dominio', () => {
+    const email = component.form.get('email');
+
+    email?.setValue('aaaaa');
+
+    expect(email?.invalid).toBeTrue();
+  });
+
   it('debe fallar si la edad es menor a 13 anos', () => {
     const birthDate = component.form.get('birthDate');
 

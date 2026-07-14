@@ -1,0 +1,81 @@
+{
+  "productos": [
+    {
+      "id": "p-1",
+      "name": "Laptop Lenovo IdeaPad 5",
+      "brand": "Lenovo",
+      "category": "Laptops",
+      "price": 699990,
+      "stock": 8,
+      "image": "assets/img/products/laptop.svg",
+      "description": "Notebook liviano para estudio, oficina y navegacion diaria con SSD y autonomia amplia.",
+      "featured": true
+    },
+    {
+      "id": "p-2",
+      "name": "Procesador AMD Ryzen 5 5600",
+      "brand": "AMD",
+      "category": "Componentes",
+      "price": 149990,
+      "stock": 14,
+      "image": "assets/img/products/chip.svg",
+      "description": "Procesador de 6 nucleos para equipos balanceados y gaming de entrada.",
+      "featured": true
+    },
+    {
+      "id": "p-3",
+      "name": "Tarjeta de video RTX 4060",
+      "brand": "NVIDIA",
+      "category": "PC Gamer",
+      "price": 449990,
+      "stock": 5,
+      "image": "assets/img/products/gpu.svg",
+      "description": "GPU de ultima generacion para juegos competitivos y creacion de contenido.",
+      "featured": true
+    },
+    {
+      "id": "p-4",
+      "name": "Monitor 27'' 144Hz",
+      "brand": "AOC",
+      "category": "Monitores",
+      "price": 219990,
+      "stock": 10,
+      "image": "assets/img/products/monitor.svg",
+      "description": "Monitor amplio y fluido para trabajo visual y experiencia gamer mas comoda.",
+      "featured": false
+    },
+    {
+      "id": "p-5",
+      "name": "RAM DDR4 16GB",
+      "brand": "Kingston",
+      "category": "Componentes",
+      "price": 54990,
+      "stock": 20,
+      "image": "assets/img/products/ram.svg",
+      "description": "Memoria para mejorar multitarea y rendimiento general del equipo.",
+      "featured": false
+    },
+    {
+      "id": "p-6",
+      "name": "SSD NVMe 1TB",
+      "brand": "Western Digital",
+      "category": "Almacenamiento",
+      "price": 78990,
+      "stock": 18,
+      "image": "assets/img/products/ssd.svg",
+      "description": "Almacenamiento veloz para arranque rapido y carga agil de aplicaciones.",
+      "featured": false
+    },
+    {
+      "id": "p-7",
+      "name": "Teclado mecanico RGB",
+      "brand": "Redragon",
+      "category": "Perifericos",
+      "price": 49990,
+      "stock": 12,
+      "image": "assets/img/products/keyboard.svg",
+      "description": "Teclado robusto con iluminacion para estaciones de trabajo o gaming.",
+      "featured": false
+    }
+  ]
+}

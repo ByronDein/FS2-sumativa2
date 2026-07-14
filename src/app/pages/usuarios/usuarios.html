@@ -1,5 +1,9 @@
 <main class="container py-4">
-  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+  <div
+    *ngIf="alert"
+    class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3"
+    role="alert"
+  >
     {{ alert.message }}
     <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
   </div>
@@ -27,18 +31,33 @@
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>
-              <select #roleSelect class="form-select form-select-sm" [value]="user.role" [disabled]="user.email === 'admin@techmart.local'" (change)="changeRole(user.id, roleSelect.value)">
+              <select
+                #roleSelect
+                class="form-select form-select-sm"
+                [value]="user.role"
+                [disabled]="user.email === 'admin@techmart.local'"
+                (change)="changeRole(user.id, roleSelect.value)"
+              >
                 <option value="customer">Cliente</option>
                 <option value="admin">Admin</option>
               </select>
             </td>
             <td>
-              <span class="badge" [class.text-bg-success]="user.active" [class.text-bg-secondary]="!user.active">
+              <span
+                class="badge"
+                [class.text-bg-success]="user.active"
+                [class.text-bg-secondary]="!user.active"
+              >
                 {{ user.active ? 'Activo' : 'Bloqueado' }}
               </span>
             </td>
             <td>
-              <button class="btn btn-sm btn-outline-light" type="button" [disabled]="user.email === 'admin@techmart.local'" (click)="toggleActive(user.id)">
+              <button
+                class="btn btn-sm btn-outline-light"
+                type="button"
+                [disabled]="user.email === 'admin@techmart.local'"
+                (click)="toggleActive(user.id)"
+              >
                 {{ user.active ? 'Bloquear' : 'Activar' }}
               </button>
             </td>

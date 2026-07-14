@@ -1,5 +1,9 @@
 <main class="container py-4">
-  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+  <div
+    *ngIf="alert"
+    class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3"
+    role="alert"
+  >
     {{ alert.message }}
     <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
   </div>
@@ -11,8 +15,10 @@
           <span class="eyebrow">Ingreso</span>
           <h1 class="h2 fw-bold mb-3">Entra a la tienda y revisa tu compra.</h1>
           <p class="text-secondary mb-4">
-            Usuario demo cliente: <strong>cliente@techmart.local</strong> / <strong>Cliente2026!</strong><br>
-            Usuario demo admin: <strong>admin@techmart.local</strong> / <strong>AdminTech2026!</strong>
+            Usuario demo cliente: <strong>cliente@techmart.local</strong> /
+            <strong>Cliente2026!</strong><br />
+            Usuario demo admin: <strong>admin@techmart.local</strong> /
+            <strong>AdminTech2026!</strong>
           </p>
           <div class="row g-3">
             <div class="col-6">
@@ -41,21 +47,41 @@
           <form class="row g-3" [formGroup]="form" (ngSubmit)="submit()">
             <div class="col-12">
               <label class="form-label" for="email">Correo</label>
-              <input class="form-control" id="email" type="email" formControlName="email" (keyup)="alert = null">
-              <div class="invalid-feedback d-block" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+              <input
+                class="form-control"
+                id="email"
+                type="email"
+                formControlName="email"
+                (keyup)="alert = null"
+              />
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="form.controls.email.touched && form.controls.email.invalid"
+              >
                 Ingresa un correo valido.
               </div>
             </div>
             <div class="col-12">
               <label class="form-label" for="password">Contrasena</label>
-              <input class="form-control" id="password" type="password" formControlName="password" (keyup)="alert = null">
-              <div class="invalid-feedback d-block" *ngIf="form.controls.password.touched && form.controls.password.invalid">
+              <input
+                class="form-control"
+                id="password"
+                type="password"
+                formControlName="password"
+                (keyup)="alert = null"
+              />
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="form.controls.password.touched && form.controls.password.invalid"
+              >
                 Ingresa tu contrasena.
               </div>
             </div>
             <div class="col-12 d-grid gap-2">
               <button class="btn btn-primary" type="submit">Entrar</button>
-              <button class="btn btn-outline-light" type="button" (click)="loadDemo()">Cargar demo</button>
+              <button class="btn btn-outline-light" type="button" (click)="loadDemo()">
+                Cargar demo
+              </button>
             </div>
           </form>
         </div>

@@ -14,7 +14,10 @@ export class AuthService {
   login(email: string, password: string): User | null {
     const user = this.usersService
       .all()
-      .find((item) => item.email.toLowerCase() === email.trim().toLowerCase() && item.password === password);
+      .find(
+        (item) =>
+          item.email.toLowerCase() === email.trim().toLowerCase() && item.password === password,
+      );
 
     if (!user || !user.active) return null;
 

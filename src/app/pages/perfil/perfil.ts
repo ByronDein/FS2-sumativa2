@@ -26,14 +26,23 @@ export class Perfil {
     {
       name: [this.currentUser?.name || '', [Validators.required, Validators.minLength(3)]],
       email: [this.currentUser?.email || '', [Validators.required, Validators.email]],
-      phone: [this.currentUser?.phone || '', [Validators.required, Validators.pattern(/^[0-9+\s()-]{8,16}$/)]],
+      phone: [
+        this.currentUser?.phone || '',
+        [Validators.required, Validators.pattern(/^[0-9+\s()-]{8,16}$/)],
+      ],
       address: [this.currentUser?.address || '', [Validators.minLength(5)]],
-      birthDate: [this.currentUser?.birthDate || '', [Validators.required, this.validation.minAge(13)]],
-      password: ['', [
-        Validators.minLength(6),
-        Validators.maxLength(18),
-        Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).+$/),
-      ]],
+      birthDate: [
+        this.currentUser?.birthDate || '',
+        [Validators.required, this.validation.minAge(13)],
+      ],
+      password: [
+        '',
+        [
+          Validators.minLength(6),
+          Validators.maxLength(18),
+          Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).+$/),
+        ],
+      ],
       confirm: [''],
     },
     { validators: this.validation.matchFields('password', 'confirm') },

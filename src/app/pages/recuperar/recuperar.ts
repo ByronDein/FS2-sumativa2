@@ -24,12 +24,15 @@ export class Recuperar {
   form = this.fb.group(
     {
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(18),
-        Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).+$/),
-      ]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(18),
+          Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).+$/),
+        ],
+      ],
       confirm: ['', Validators.required],
     },
     { validators: this.validation.matchFields('password', 'confirm') },

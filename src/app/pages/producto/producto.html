@@ -1,5 +1,9 @@
 <main class="container py-4">
-  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+  <div
+    *ngIf="alert"
+    class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3"
+    role="alert"
+  >
     {{ alert.message }}
     <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
   </div>
@@ -7,7 +11,9 @@
   <section class="surface-panel mb-4">
     <span class="eyebrow">Productos</span>
     <h1 class="h3 fw-bold mb-2">Mantenedor de productos</h1>
-    <p class="text-secondary mb-0">Formulario reactivo para crear, editar y eliminar productos del catalogo.</p>
+    <p class="text-secondary mb-0">
+      Formulario reactivo para crear, editar y eliminar productos del catalogo.
+    </p>
   </section>
 
   <section class="row g-4">
@@ -15,14 +21,14 @@
       <div class="surface-panel h-100">
         <h2 class="h5 mb-3">Formulario</h2>
         <form class="row g-3" [formGroup]="form" (ngSubmit)="save()">
-          <input type="hidden" formControlName="id">
+          <input type="hidden" formControlName="id" />
           <div class="col-12">
             <label class="form-label" for="name">Nombre</label>
-            <input class="form-control" id="name" formControlName="name">
+            <input class="form-control" id="name" formControlName="name" />
           </div>
           <div class="col-12">
             <label class="form-label" for="brand">Marca</label>
-            <input class="form-control" id="brand" formControlName="brand">
+            <input class="form-control" id="brand" formControlName="brand" />
           </div>
           <div class="col-12">
             <label class="form-label" for="category">Categoria</label>
@@ -32,28 +38,40 @@
           </div>
           <div class="col-6">
             <label class="form-label" for="price">Precio</label>
-            <input class="form-control" id="price" type="number" min="0" formControlName="price">
+            <input class="form-control" id="price" type="number" min="0" formControlName="price" />
           </div>
           <div class="col-6">
             <label class="form-label" for="stock">Stock</label>
-            <input class="form-control" id="stock" type="number" min="0" formControlName="stock">
+            <input class="form-control" id="stock" type="number" min="0" formControlName="stock" />
           </div>
           <div class="col-12">
             <label class="form-label" for="image">Imagen</label>
-            <input class="form-control" id="image" formControlName="image">
+            <input class="form-control" id="image" formControlName="image" />
           </div>
           <div class="col-12">
             <label class="form-label" for="description">Descripcion</label>
-            <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="3"
+              formControlName="description"
+            ></textarea>
           </div>
           <div class="col-12">
             <div class="form-check">
-              <input class="form-check-input" id="featured" type="checkbox" formControlName="featured">
+              <input
+                class="form-check-input"
+                id="featured"
+                type="checkbox"
+                formControlName="featured"
+              />
               <label class="form-check-label" for="featured">Producto destacado</label>
             </div>
           </div>
           <div class="col-12 d-grid gap-2">
-            <button class="btn btn-primary" type="submit">Guardar producto</button>
+            <button class="btn btn-primary" type="submit" [disabled]="loading">
+              {{ form.controls.id.value ? 'Actualizar producto' : 'Crear producto' }}
+            </button>
             <button class="btn btn-outline-light" type="button" (click)="clear()">Limpiar</button>
           </div>
         </form>
@@ -75,15 +93,40 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let product of products()">
-                <td><strong>{{ product.name }}</strong><div class="small text-secondary">{{ product.brand }}</div></td>
+              <tr *ngIf="loading">
+                <td colspan="5" class="text-center text-secondary">Cargando productos...</td>
+              </tr>
+              <tr *ngFor="let product of products">
+                <td>
+                  <strong>{{ product.name }}</strong>
+                  <div class="small text-secondary">{{ product.brand }}</div>
+                </td>
                 <td>{{ product.category }}</td>
-                <td><span class="badge" [class.text-bg-warning]="product.stock < 5" [class.text-bg-success]="product.stock >= 5">{{ product.stock }}</span></td>
+                <td>
+                  <span
+                    class="badge"
+                    [class.text-bg-warning]="product.stock < 5"
+                    [class.text-bg-success]="product.stock >= 5"
+                    >{{ product.stock }}</span
+                  >
+                </td>
                 <td>{{ storage.money(product.price) }}</td>
                 <td>
                   <div class="d-flex gap-2">
-                    <button class="btn btn-sm btn-outline-light" type="button" (click)="edit(product)">Editar</button>
-                    <button class="btn btn-sm btn-outline-danger" type="button" (click)="delete(product.id)">Eliminar</button>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      (click)="edit(product)"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-sm btn-outline-danger"
+                      type="button"
+                      (click)="delete(product.id)"
+                    >
+                      Eliminar
+                    </button>
                   </div>
                 </td>
               </tr>

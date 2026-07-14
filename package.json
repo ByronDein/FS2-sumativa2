@@ -8,7 +8,8 @@
     "watch": "ng build semana6S --watch --configuration development",
     "test": "ng test semana6S",
     "docs": "compodoc -p tsconfig.app.json -d documentation",
-    "docs:serve": "compodoc -p tsconfig.app.json -d documentation -s"
+    "docs:serve": "compodoc -p tsconfig.app.json -d documentation -s",
+    "api": "json-server --watch db.json --port 3000"
   },
   "private": true,
   "packageManager": "yarn@1.22.22",
@@ -38,6 +39,7 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.2.0",
     "prettier": "^3.8.1",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "json-server": "0.17.4"
   }
 }

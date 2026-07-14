@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Producto } from './producto';
@@ -10,7 +11,7 @@ describe('Producto - Formulario reactivo', () => {
 
     await TestBed.configureTestingModule({
       imports: [Producto],
-      providers: [provideRouter([])],
+      providers: [provideRouter([]), provideHttpClient()],
     }).compileComponents();
 
     const fixture = TestBed.createComponent(Producto);

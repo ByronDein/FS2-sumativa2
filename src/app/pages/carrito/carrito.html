@@ -1,5 +1,9 @@
 <main class="container py-4">
-  <div *ngIf="alert" class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3" role="alert">
+  <div
+    *ngIf="alert"
+    class="alert alert-{{ alert.type }} alert-dismissible fade show mb-3"
+    role="alert"
+  >
     {{ alert.message }}
     <button type="button" class="btn-close" aria-label="Cerrar" (click)="alert = null"></button>
   </div>
@@ -20,13 +24,23 @@
             <strong>{{ row.product.name }}</strong>
             <div class="small text-secondary">{{ row.product.category }}</div>
           </div>
-          <button class="btn btn-sm btn-outline-light" type="button" (click)="cart.remove(row.productId)">Eliminar</button>
+          <button
+            class="btn btn-sm btn-outline-light"
+            type="button"
+            (click)="cart.remove(row.productId)"
+          >
+            Eliminar
+          </button>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-2">
           <div class="input-group input-group-sm" style="max-width: 120px">
-            <button class="btn btn-outline-light" type="button" (click)="cart.minus(row.productId)">-</button>
-            <input class="form-control text-center" [value]="row.qty" readonly>
-            <button class="btn btn-outline-light" type="button" (click)="cart.plus(row.productId)">+</button>
+            <button class="btn btn-outline-light" type="button" (click)="cart.minus(row.productId)">
+              -
+            </button>
+            <input class="form-control text-center" [value]="row.qty" readonly />
+            <button class="btn btn-outline-light" type="button" (click)="cart.plus(row.productId)">
+              +
+            </button>
           </div>
           <strong>{{ storage.money(row.subtotal) }}</strong>
         </div>
@@ -34,7 +48,7 @@
       <div class="text-secondary" *ngIf="!cart.rows().length">No hay productos en el carrito.</div>
     </div>
 
-    <hr>
+    <hr />
     <div class="d-grid d-md-flex justify-content-md-end">
       <button class="btn btn-primary" type="button" (click)="checkout()">Simular pago</button>
     </div>

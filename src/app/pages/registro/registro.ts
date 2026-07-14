@@ -24,16 +24,26 @@ export class Registro {
   form = this.fb.group(
     {
       name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/),
+        ],
+      ],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9+\s()-]{8,16}$/)]],
       address: ['', [Validators.minLength(5)]],
       birthDate: ['', [Validators.required, this.validation.minAge(13)]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(18),
-        Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).+$/),
-      ]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(18),
+          Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).+$/),
+        ],
+      ],
       confirm: ['', Validators.required],
       terms: [false, Validators.requiredTrue],
     },
